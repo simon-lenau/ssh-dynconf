@@ -1,0 +1,25 @@
+function ssh_hostname {
+    init_doc
+    init_desc \
+        "Retrieve full hostname from ssh config"
+    init_arg "str" "host" "The host to retrieve the address for" "localhost"
+
+    need_help $@ && return $?
+
+    eval "$(parse_arguments "$@")"
+
+    if [[ "${host}" == "localhost" ||
+        "${host}" == "" ]]; then
+        local host="$(read_non_blocking "$@")"
+    fi
+
+    if [[ "${host}" == "" ]]; then
+        err "Argument 'host' may not be empty"
+    fi
+
+    echo "$(
+        ssh -G "${host}" 2>/dev/null |
+            awk '$1 == "hostname" { print $2 }'
+    )"
+
+}

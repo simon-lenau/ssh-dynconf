@@ -1,0 +1,31 @@
+function ssh_available_hosts {
+    init_doc
+    init_desc \
+        "Check whether a host is accessivale via ssh"
+    init_arg "str" "hosts" "The ssh host to check" "localhost"
+    init_arg "str" "port" "The ssh port to check" "12345"
+
+    need_help $@ && return $?
+    eval "$(parse_arguments "$@")"
+
+    if [ ${#hosts[@]} -eq 0 ]; then
+        err "Argument hosts may not be empty"
+    fi
+    if [[ "${port}" == "" ]]; then
+        err "Argument 'port' may not be empty"
+    fi
+
+    available_hosts=($(
+        for ((i = 0; i < ${#hosts[@]}; i++)); do
+            (
+                echo "${hosts[$i]}" |
+                    ssh_host_available \
+                        --host "$host" \
+                        --port "$port" &&
+                echo "${hosts[$i]}"
+            ) &
+        done
+    )
+    )
+    printf " %s " "${available_hosts[@]}"
+}
