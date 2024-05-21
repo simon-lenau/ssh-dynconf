@@ -13,20 +13,16 @@ fi
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ========================== > Source submodules < =========================== #
-cd $SSH_FIND_HOST_DIR/submodules/bash-doc && 
-    source ${SSH_FIND_HOST_DIR}/submodules/bash-doc/bash-doc-init
-cd $SSH_FIND_HOST_DIR/
+source ${SSH_FIND_HOST_DIR}/submodules/bash-doc/bash-doc-init
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ============================= > Source files < ============================= #
-cd ${SSH_FIND_HOST_DIR}/functions
-source ./normalize_path
-source ./read_non_blocking
-source ./ssh_available_hosts
-source ./ssh_host_available
-source ./ssh_host_name
-source ./ssh_config_update
-cd ${SSH_FIND_HOST_DIR}/
+source ${SSH_FIND_HOST_DIR}/functions/normalize_path
+source ${SSH_FIND_HOST_DIR}/functions/read_non_blocking
+source ${SSH_FIND_HOST_DIR}/functions/ssh_available_hosts
+source ${SSH_FIND_HOST_DIR}/functions/ssh_host_available
+source ${SSH_FIND_HOST_DIR}/functions/ssh_host_name
+source ${SSH_FIND_HOST_DIR}/functions/ssh_config_update
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ========================= > Export all functions < ========================= #
