@@ -1,41 +1,34 @@
 #!/usr/bin/env bash
 
-if [ -n "${__ssh_find_host__}" ]; then return; fi
+if [ -n "${__ssh_find_host__}" ]; then return 0; fi
+
 export __ssh_find_host__=true
 
 # =============================== > Settings < =============================== #
 
 if [ -z "${SSH_FIND_HOST_DIR}" ]; then
-    export SSH_FIND_HOST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    SSH_FIND_HOST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 fi
 
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ========================== > Source submodules < =========================== #
-source ${SSH_FIND_HOST_DIR}/submodules/bash-doc/init
+cd $SSH_FIND_HOST_DIR/submodules/bash-doc && 
+    source ${SSH_FIND_HOST_DIR}/submodules/bash-doc/bash-doc-init
+cd $SSH_FIND_HOST_DIR/
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ============================= > Source files < ============================= #
-source_path="${SSH_FIND_HOST_DIR}/functions"
-
-# source ${source_path}/dev-container
-source ${source_path}/read_non_blocking
-source ${source_path}/ssh_available_hosts
-source ${source_path}/ssh_host_available
-source ${source_path}/ssh_hostname
+cd ${SSH_FIND_HOST_DIR}/functions
+source ./normalize_path
+source ./read_non_blocking
+source ./ssh_available_hosts
+source ./ssh_host_available
+source ./ssh_host_name
+source ./ssh_config_update
+cd ${SSH_FIND_HOST_DIR}/
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
 # ========================= > Export all functions < ========================= #
 eval "$(declare -F | sed -e 's/-f /-fx /')"
 # ────────────────────────────────── <end> ─────────────────────────────────── #
-aaa=($(ssh_available_hosts \
-    --hosts="127.0.0.1"  \
-    --port 11782
-))
-
-printf "|A%sB|\n" "${aaa[@]}"
-
-
-# ssh_host_available \
-#                     --host "127.0.0.1" \
-#                     --port "11782"

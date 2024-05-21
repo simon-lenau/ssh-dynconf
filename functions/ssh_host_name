@@ -1,4 +1,4 @@
-function ssh_hostname {
+function ssh_host_name {
     init_doc
     init_desc \
         "Retrieve full hostname from ssh config"

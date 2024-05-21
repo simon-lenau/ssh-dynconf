@@ -3,7 +3,7 @@ function ssh_host_available {
     init_desc \
         "Check whether a host is accessivale via ssh"
     init_arg "str" "host" "The ssh host to check" "localhost"
-    init_arg "str" "port" "The ssh port to check" "12345"
+    init_arg "num" "port" "The ssh port to check" "12345"
 
     need_help $@ && return $?
 

@@ -1,0 +1,81 @@
+---
+title: ssh-dynconf
+output:
+  github_document
+---
+
+```{r, echo=FALSE,include=FALSE}
+# Make sure colors from tput are used correctly in the output
+options(crayon.enabled = TRUE)
+knitr::knit_hooks$set(output = function(x, options) {
+  paste0(
+  #   "<svg fill=\"none\" viewBox=\"0 0 600 300\" width=\"600\" height=\"300\" xmlns=\"http://www.w3.org/2000/svg\">",
+  # "<foreignObject width=\"100%\" height=\"100%\">",
+    '<pre class="r-output">',
+    paste0(
+      "<code>",
+      paste0(
+        fansi::to_html(
+          x =
+            htmltools::htmlEscape(x),
+          warn = FALSE,
+          carry = FALSE
+        ),
+        collapse = "  \n"
+      ),
+      "</code>",
+      collapse = "\n"
+    ),
+    "</pre>"
+    # "</foreignObject>",
+# "</svg>"
+  )
+})
+num_colors <- function(forget = TRUE) 256
+library(crayon)
+assignInNamespace("num_colors", num_colors, pos = "package:crayon")
+Sys.setenv("TERM" = "dumb")
+
+print_help <-
+  function(x) {
+    cat(
+      system(
+        paste0(
+          "/opt/homebrew/bin/bash -c \"source ./ssh-dynconf-init && ",
+      x,
+      " --help\""
+      ), 
+      intern = TRUE),
+      sep =
+        "\n"
+    )
+  }
+```
+
+
+
+Simple functions for checking ssh hosts and create / modify conditional ssh config files
+
+### Check ssh hosts' availability
+
+#### `ssh_host_available`
+
+```{r, eval=TRUE, echo=FALSE,include=TRUE,comment=""}
+print_help("ssh_host_available")
+```
+
+#### `ssh_available_hosts`
+
+```{r, eval=TRUE, echo=FALSE,include=TRUE,comment=""}
+print_help("ssh_available_hosts")
+```
+
+
+### Modify ssh config file(s)
+
+#### `ssh_config_update`
+
+```{r, eval=TRUE, echo=FALSE,include=TRUE,comment=""}
+print_help("ssh_config_update")
+```
+

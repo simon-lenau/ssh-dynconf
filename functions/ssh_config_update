@@ -1,0 +1,61 @@
+function ssh_config_update {
+    init_doc
+    init_desc \
+        'Add / replace / delete a ssh config keyword.' "See \`man ssh_config\` for possible keywords."
+    init_arg "str" "action" "The action to perform.\\nEither add|replace|delete a ssh config keyword." "replace"
+    init_arg "str" "file" "The ssh config file" "~/.ssh/example"
+    init_arg "str" "keyword" "The ssh config keyword to replace." "Host"
+    init_arg "str" "value" "The value to set for \`keyword\`" "localhost"
+
+    need_help $@ && return $?
+    eval "$(parse_arguments "$@")"
+    if [[ ! ${action} =~ (add|replace|delete) ]]; then
+        err "Invalid value for argument 'action': \"${action}\"." \
+            "\tMust be one of add|replace|delete."
+    fi
+    if [[ "${file}" == "" ]]; then
+        err "Argument 'file' may not be empty"
+    fi
+    if [[ "${keyword}" == "" ]]; then
+        err "Argument 'keyword' may not be empty"
+    fi
+    if [[ "${value}" == "" ]]; then
+        if [[ ${action} =~ (add|replace) ]]; then
+            err "Argument 'value' may not be empty if 'action' is \"${action}\"."
+        fi
+    fi
+
+    file=$(normalize_path --path "${file}")
+
+    if [[ "${action}" == "replace" ]]; then
+        $(perl -i -p0e "s/(${keyword}\s+).*/\${1}${value}/gi" "$file")
+    elif [[ "${action}" == "add" ]]; then
+        # Make sure keyword is not already there,
+        # otherwise replace rather than adding it
+        if grep -iq "${keyword}" "$file"; then
+            ssh_config_update \
+                --action "replace" \
+                --file "${file}" \
+                --keyword "${keyword}" \
+                --value "${value}"
+        else
+            # Host(name) must come first
+            if (echo "${keyword}" | grep -i -E -q -- "^host(name)*"); then
+                (
+                    printf "%s %s\n" "${keyword}" "${value}"
+                    cat "${file}"
+                ) >>"${file}_tmp"
+                mv "${file}_tmp" "${file}"
+            else
+                # Other keywords are indented
+                printf "\n\t%s %s\n" "${keyword}" "${value}" >>"${file}"
+            fi
+        fi
+    elif [[ "${action}" == "delete" ]]; then
+        $(perl -i -p0e "s/(${keyword}\s+).*\n//gmi" "$file")
+    fi
+    # Replace multiple newlines to keep file clean
+            $(perl -i -p0e "s/\n+/\n/gmi" "$file")
+
+}
+
