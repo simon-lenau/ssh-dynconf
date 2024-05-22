@@ -4,6 +4,7 @@ function ssh_available_hosts {
         "Check whether a host is accessivale via ssh"
     init_arg "str" "hosts" "The ssh host to check" "localhost"
     init_arg "num" "port" "The ssh port to check" "12345"
+    init_arg "num" "timeout" "The timout in seconds" "2"
 
     need_help $@ && return $?
     eval "$(parse_arguments "$@")"
@@ -21,8 +22,9 @@ function ssh_available_hosts {
                 echo "${hosts[$i]}" |
                     ssh_host_available \
                         --host "$host" \
-                        --port "$port" &&
-                echo "${hosts[$i]}"
+                        --port "$port" \
+                        --timeout "$timeout" &&
+                    echo "${hosts[$i]}"
             ) &
         done
     )
