@@ -4,6 +4,7 @@ function ssh_host_available {
         "Check whether a host is accessivale via ssh"
     init_arg "str" "host" "The ssh host to check" "localhost"
     init_arg "num" "port" "The ssh port to check" "12345"
+    init_arg "num" "timeout" "The timout in seconds" "2"
 
     need_help $@ && return $?
 
@@ -26,7 +27,7 @@ function ssh_host_available {
         -o PasswordAuthentication=no \
         -o KbdInteractiveAuthentication=no \
         -o ChallengeResponseAuthentication=no \
-        -o ConnectTimeout=2 \
+        -o ConnectTimeout=${timeout} \
         -p 11782 \
         "${host}" \
         2>&1)"
