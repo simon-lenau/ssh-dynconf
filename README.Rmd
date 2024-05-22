@@ -54,7 +54,7 @@ print_help <-
 
 
 
-Simple functions for checking ssh hosts and create / modify conditional ssh config files
+Simple functions for checking ssh hosts and create / modify dynamic / conditional ssh config files
 
 ### Check ssh hosts' availability
 

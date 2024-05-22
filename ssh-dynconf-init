@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# !/usr/bin/env bash
 
 if [ -n "${__ssh_dynconf_included__}" ]; then return 0; fi
 
@@ -33,3 +33,4 @@ eval "$(declare -F |
     perl -p0e "s/declare\s+-f\s+(.*)\s*$/export -f \${1}/gmi" )"
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
+ssh_host_available --host "127.0.0.1" --port "11782"
