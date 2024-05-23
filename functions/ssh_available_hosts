@@ -23,8 +23,8 @@ function ssh_available_hosts {
                     ssh_host_available \
                         --host "$host" \
                         --port "$port" \
-                        --timeout "$timeout" &&
-                    echo "${hosts[$i]}"
+                        --timeout $timeout &&
+                echo "${hosts[$i]}"
             ) &
         done
     )

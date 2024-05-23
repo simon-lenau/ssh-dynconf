@@ -21,6 +21,11 @@ fi
 source ${SSH_DYNCONF_DIR}/submodules/bash-aux/bash-aux-init
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
+# =================== > Save currently defined functions < =================== #
+# To exclude them from exporting
+functions_not_export="$(declare -F)"
+# ────────────────────────────────── <end> ─────────────────────────────────── #
+
 # ============================= > Source files < ============================= #
 source ${SSH_DYNCONF_DIR}/functions/ssh_available_hosts
 source ${SSH_DYNCONF_DIR}/functions/ssh_host_available
@@ -28,9 +33,17 @@ source ${SSH_DYNCONF_DIR}/functions/ssh_host_name
 source ${SSH_DYNCONF_DIR}/functions/ssh_config_update
 # ────────────────────────────────── <end> ─────────────────────────────────── #
 
-# ========================= > Export all functions < ========================= #
-eval "$(declare -F |
-    perl -p0e "s/declare\s+-f\s+(.*)\s*$/export -f \${1}/gmi" )"
-# ────────────────────────────────── <end> ─────────────────────────────────── #
+# ================== > Export all newly defined functions < ================== #
+readarray -t functions <<<"$(declare -F)"
 
-ssh_host_available --host "127.0.0.1" --port "11782"
+functions_export="$(
+    for function in "${functions[@]}"; do
+        if [[ ! $functions_not_export =~ $function ]];then
+            echo "$function" | 
+            perl -p0e "s/declare\s+-f\s+(.*)\s*$/export -f \${1}\n/gi" 
+        fi
+    done
+)"
+
+eval "${functions_export}"
+# ────────────────────────────────── <end> ─────────────────────────────────── #
