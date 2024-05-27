@@ -32,8 +32,13 @@ function ssh_host_available {
         "${host}" \
         2>&1)"
 
+    if (printf "${output}" | grep -Eiq "Host key .* has changed"); then
+        echo "Key for host $hostname has changed. Removing that host!"
+        ssh-keygen -f "$HOME/.ssh/known_hosts" -R "[${host}]:${port}"
+    fi
+
     printf "${output}" |
-        grep "Permission denied" > \
+        grep -Eiq "(Permission denied|Host key .* has changed)" > \
             /dev/null 2>&1
 
     retval=$?
