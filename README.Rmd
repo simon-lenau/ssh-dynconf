@@ -68,7 +68,6 @@ print_help("ssh_host_available")
 print_help("ssh_available_hosts")
 ```
 
-
 ### Modify ssh config file(s)
 
 #### `ssh_config_update`

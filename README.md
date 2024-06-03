@@ -1,4 +1,4 @@
-# bash-doc
+# ssh-dynconf
 
 
 
@@ -51,7 +51,6 @@ Functions for dynamically generating / modifying ssh config files and availabili
          --port     "12345" \
          --timeout  "2"
 </code></pre>
-
 
 ### Modify ssh config file(s)
 
