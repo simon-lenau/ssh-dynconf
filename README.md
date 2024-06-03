@@ -1,44 +1,57 @@
-ssh-dynconf
-================
+# bash-doc
 
-Simple functions for checking ssh hosts and create / modify conditional
-ssh config files
 
-### Check ssh hosts’ availability
+
+Functions for dynamically generating / modifying ssh config files and availability checks ssh hosts
+
+### Check ssh hosts' availability
 
 #### `ssh_host_available`
 
 <pre class="r-output"><code>ssh_host_available   
    Check whether a host is accessivale via ssh
-&#10;   Arguments:      
+
+   Arguments:      
       --host     &lt;str&gt; 
          The ssh host to check
          Default: localhost
       --port     &lt;num&gt; 
          The ssh port to check
          Default: 12345
-&#10;   Usage:      
+      --timeout  &lt;num&gt; 
+         The timout in seconds
+         Default: 2
+
+   Usage:      
       ssh_host_available \
          --host     "localhost" \
-         --port     "12345"
+         --port     "12345" \
+         --timeout  "2"
 </code></pre>
 
 #### `ssh_available_hosts`
 
 <pre class="r-output"><code>ssh_available_hosts   
    Check whether a host is accessivale via ssh
-&#10;   Arguments:      
+
+   Arguments:      
       --hosts    &lt;str&gt; 
          The ssh host to check
          Default: localhost
       --port     &lt;num&gt; 
          The ssh port to check
          Default: 12345
-&#10;   Usage:      
+      --timeout  &lt;num&gt; 
+         The timout in seconds
+         Default: 2
+
+   Usage:      
       ssh_available_hosts \
          --hosts    "localhost" \
-         --port     "12345"
+         --port     "12345" \
+         --timeout  "2"
 </code></pre>
+
 
 ### Modify ssh config file(s)
 
@@ -47,7 +60,8 @@ ssh config files
 <pre class="r-output"><code>ssh_config_update   
    Add / replace / delete a ssh config keyword.
    See `man ssh_config` for possible keywords.
-&#10;   Arguments:      
+
+   Arguments:      
       --action   &lt;str&gt; 
          The action to perform.
          Either add|replace|delete a ssh config keyword.
@@ -61,10 +75,12 @@ ssh config files
       --value    &lt;str&gt; 
          The value to set for `keyword`
          Default: localhost
-&#10;   Usage:      
+
+   Usage:      
       ssh_config_update \
          --action   "replace" \
          --file     "~/.ssh/example" \
          --keyword  "Host" \
          --value    "localhost"
 </code></pre>
+

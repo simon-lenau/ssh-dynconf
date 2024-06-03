@@ -52,9 +52,7 @@ print_help <-
   }
 ```
 
-
-
-Simple functions for checking ssh hosts and create / modify dynamic / conditional ssh config files
+Functions for dynamically generating / modifying ssh config files and availability checks ssh hosts
 
 ### Check ssh hosts' availability
 
