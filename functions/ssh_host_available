@@ -28,7 +28,7 @@ function ssh_host_available {
         -o KbdInteractiveAuthentication=no \
         -o ChallengeResponseAuthentication=no \
         -o ConnectTimeout=${timeout} \
-        -p 11782 \
+        -p "${port}" \
         "${host}" \
         2>&1)"
 

@@ -4,6 +4,8 @@
 
 Functions for dynamically generating / modifying ssh config files and availability checks ssh hosts
 
+## Core functions
+
 ### Check ssh hosts' availability
 
 #### `ssh_host_available`
@@ -83,3 +85,4 @@ Functions for dynamically generating / modifying ssh config files and availabili
          --value    "localhost"
 </code></pre>
 
+## Examples 

@@ -28,7 +28,12 @@ function ssh_config_update {
     file=$(normalize_path --path "${file}")
 
     if [[ "${action}" == "replace" ]]; then
-        $(perl -i -p0e "s/(${keyword}\s+).*/\${1}${value}/gi" "$file")
+        # Make sure special characters are escaped
+        replace_value="$(
+            echo "${value}" |
+                perl -p0e "s/([\/\[\]\{\}\.\*\\$])/\\\\\${1}/gi"
+        )"
+        $(perl -i -p0e "s/(${keyword}\s+).*/\${1}${replace_value}/gi" "$file")
     elif [[ "${action}" == "add" ]]; then
         # Make sure keyword is not already there,
         # otherwise replace rather than adding it
@@ -40,7 +45,7 @@ function ssh_config_update {
                 --value "${value}"
         else
             # Host(name) must come first
-            if (echo "${keyword}" | grep -i -E -q -- "^host(name)*"); then
+            if (echo "${keyword}" | grep -i -E -q -- "^host(name)*$"); then
                 (
                     printf "%s %s\n" "${keyword}" "${value}"
                     cat "${file}"
@@ -55,7 +60,6 @@ function ssh_config_update {
         $(perl -i -p0e "s/(${keyword}\s+).*\n//gmi" "$file")
     fi
     # Replace multiple newlines to keep file clean
-            $(perl -i -p0e "s/\n+/\n/gmi" "$file")
+    $(perl -i -p0e "s/\n+/\n/gmi" "$file")
 
 }
-

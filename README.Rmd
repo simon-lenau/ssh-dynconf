@@ -54,6 +54,8 @@ print_help <-
 
 Functions for dynamically generating / modifying ssh config files and availability checks ssh hosts
 
+## Core functions
+
 ### Check ssh hosts' availability
 
 #### `ssh_host_available`
@@ -76,3 +78,4 @@ print_help("ssh_available_hosts")
 print_help("ssh_config_update")
 ```
 
+## Examples 
