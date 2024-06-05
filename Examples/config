@@ -1,0 +1,7 @@
+# To execute the example-config-builder.sh conditionally on the entered host,
+# this will include example-config-builder only 
+# if the original host matches 'examplehost'
+
+Match originalhost ^examplehost$
+	Include find_examplehost.conf
+
