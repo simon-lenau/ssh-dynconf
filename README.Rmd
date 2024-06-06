@@ -41,7 +41,7 @@ print_help <-
     cat(
       system(
         paste0(
-          "/opt/homebrew/bin/bash -c \"source ./ssh-dynconf-init && ",
+          "/usr/bin/env bash -c \"source ./ssh-dynconf-init && ",
       x,
       " --help\""
       ), 
@@ -79,3 +79,58 @@ print_help("ssh_config_update")
 ```
 
 ## Examples 
+
+The following basic examples how to use `ssh-dynconf` are located in the `[examples/](examples/)` folder:
+
+```{r, echo=FALSE,include=FALSE}
+knitr::knit_hooks$set(output = function(x, options) {
+  c(
+    '```data',
+    paste0(
+      paste0(
+        x,
+        collapse = " \n"
+      ),
+      collapse = "\n"
+    ),
+    "```"
+  )
+})
+```
+
+```{r,echo=FALSE,eval=TRUE}
+cat(1)
+```
+
+The following command attempts connecting to a host called `examplehost`
+on port `50212`:
+
+```{bash ssh_command,echo=TRUE,eval=FALSE,comment=NA}
+ssh -F ssh_config examplehost -p 50212 
+```
+
+To dynamically define the 
+[ssh_config](https://man7.org/linux/man-pages/man5/ssh_config.5.html)
+for `examplehost`, a [ssh config file](examples/ssh_config) containing
+
+```{bash ssh_config,echo=FALSE,comment=NA}
+cat "examples/ssh_config"
+```
+
+can be used.
+If the entered host matches 'examplehost',
+a script [make-examplehost-config.sh](examples/make-examplehost-config.sh) containing
+
+```{bash ssh_script,echo=FALSE,comment=NA}
+cat "examples/make-examplehost-config.sh"
+```
+
+is executed to create/modify a file [examplehost-config](examples/examplehost-config)
+that contains
+
+```{bash ssh_examplehost_config,echo=FALSE,comment=NA}
+cat "examples/examplehost-config"
+```
+
+This [examplehost-config](examples/examplehost-config) is then included in the 
+[ssh_config](https://man7.org/linux/man-pages/man5/ssh_config.5.html) file

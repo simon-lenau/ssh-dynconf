@@ -37,7 +37,7 @@ function ssh_config_update {
     elif [[ "${action}" == "add" ]]; then
         # Make sure keyword is not already there,
         # otherwise replace rather than adding it
-        if grep -iq "${keyword}" "$file"; then
+        if (grep -iq "${keyword}" "$file" 2>/dev/null); then
             ssh_config_update \
                 --action "replace" \
                 --file "${file}" \
@@ -45,10 +45,11 @@ function ssh_config_update {
                 --value "${value}"
         else
             # Host(name) must come first
-            if (echo "${keyword}" | grep -i -E -q -- "^host(name)*$"); then
+            if (echo "${keyword}" |
+                grep -i -E -q -- "^host(name)*$"); then
                 (
                     printf "%s %s\n" "${keyword}" "${value}"
-                    cat "${file}"
+                    cat "${file}" 2>/dev/null || echo ""
                 ) >>"${file}_tmp"
                 mv "${file}_tmp" "${file}"
             else

@@ -1,7 +1,7 @@
 function ssh_available_hosts {
     init_doc
     init_desc \
-        "Check whether a host is accessivale via ssh"
+        "Check whether a host is available via ssh"
     init_arg "str" "hosts" "The ssh host to check" "localhost"
     init_arg "num" "port" "The ssh port to check" "12345"
     init_arg "num" "timeout" "The timout in seconds" "2"
