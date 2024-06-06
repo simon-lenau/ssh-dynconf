@@ -103,7 +103,7 @@ ssh -F ssh_config examplehost -p 50212
 using a dynamic [configuration](https://man7.org/linux/man-pages/man5/ssh_config.5.html)
 can be achieved using a [`ssh_config`](examples/ssh_config) that contains
 
-```data
+```bash
 Match originalhost examplehost exec "./make-examplehost-config.sh %p"
 	Include examplehost-config
 
@@ -112,7 +112,7 @@ Match originalhost examplehost exec "./make-examplehost-config.sh %p"
 If the entered host matches 'examplehost',
 a script [make-examplehost-config.sh](examples/make-examplehost-config.sh) is executed, e.g. containing
 
-```data
+```bash
 #!/usr/bin/env bash
 
 source ssh-dynconf-init

@@ -85,7 +85,7 @@ The following basic examples how to use `ssh-dynconf` are located in the [`Examp
 ```{r, echo=FALSE,include=FALSE}
 knitr::knit_hooks$set(output = function(x, options) {
   c(
-    '```data',
+    '```bash',
     paste0(
       paste0(
         x,
