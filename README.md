@@ -1,3 +1,9 @@
+---
+noteId: "0f9efc3023f211efb378f1bbbb549ae0"
+tags: []
+
+---
+
 # ssh-dynconf
 
 
