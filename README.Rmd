@@ -80,7 +80,7 @@ print_help("ssh_config_update")
 
 ## Examples 
 
-The following basic examples how to use `ssh-dynconf` are located in the [`examples/`](examples/) folder:
+The following basic examples how to use `ssh-dynconf` are located in the [`Examples/`](examples/) folder:
 
 ```{r, echo=FALSE,include=FALSE}
 knitr::knit_hooks$set(output = function(x, options) {
@@ -98,39 +98,30 @@ knitr::knit_hooks$set(output = function(x, options) {
 })
 ```
 
-```{r,echo=FALSE,eval=TRUE}
-cat(1)
-```
 
-The following command attempts connecting to a host called `examplehost`
+Connecting to a host referred to as `examplehost`
 on port `50212`:
 
 ```{bash ssh_command,echo=TRUE,eval=FALSE,comment=NA}
 ssh -F ssh_config examplehost -p 50212 
 ```
 
-To dynamically define the 
-[`ssh config`](https://man7.org/linux/man-pages/man5/ssh_config.5.html)
-for `examplehost`, a [ssh config file](examples/ssh_config) containing
+using a dynamic [configuration](https://man7.org/linux/man-pages/man5/ssh_config.5.html)
+can be achieved using a [`ssh_config`](examples/ssh_config) that contains
 
 ```{bash ssh_config,echo=FALSE,comment=NA}
 cat "examples/ssh_config"
 ```
 
-can be used.
 If the entered host matches 'examplehost',
-a script [make-examplehost-config.sh](examples/make-examplehost-config.sh) containing
+a script [make-examplehost-config.sh](examples/make-examplehost-config.sh) is executed, e.g. containing
 
 ```{bash ssh_script,echo=FALSE,comment=NA}
 cat "examples/make-examplehost-config.sh"
 ```
 
-is executed to create/modify a file [examplehost-config](examples/examplehost-config)
-that contains
-
-```{bash ssh_examplehost_config,echo=FALSE,comment=NA}
-cat "examples/examplehost-config"
-```
-
-This [examplehost-config](examples/examplehost-config) is then included in the 
-[ssh_config](https://man7.org/linux/man-pages/man5/ssh_config.5.html) file
+to create/modify a configuration file [`examplehost-config`](examples/examplehost-config)
+with a conditional hostname for `examplehost`, e.g.
+This [`examplehost-config`](examples/examplehost-config) is then included in the 
+as configuration in the original
+[`ssh_config`](examples/ssh_config).

@@ -87,14 +87,12 @@ Functions for dynamically generating / modifying ssh config files and availabili
 
 ## Examples 
 
-The following basic examples how to use `ssh-dynconf` are located in the [`examples/`](examples/) folder:
+The following basic examples how to use `ssh-dynconf` are located in the [`Examples/`](examples/) folder:
 
 
 
-```data## 1
-```
 
-The following command attempts connecting to a host called `examplehost`
+Connecting to a host referred to as `examplehost`
 on port `50212`:
 
 
@@ -102,9 +100,8 @@ on port `50212`:
 ssh -F ssh_config examplehost -p 50212 
 ```
 
-To dynamically define the 
-[`ssh config`](https://man7.org/linux/man-pages/man5/ssh_config.5.html)
-for `examplehost`, a [ssh config file](examples/ssh_config) containing
+using a dynamic [configuration](https://man7.org/linux/man-pages/man5/ssh_config.5.html)
+can be achieved using a [`ssh_config`](examples/ssh_config) that contains
 
 ```data
 Match originalhost examplehost exec "./make-examplehost-config.sh %p"
@@ -112,9 +109,8 @@ Match originalhost examplehost exec "./make-examplehost-config.sh %p"
 
 ```
 
-can be used.
 If the entered host matches 'examplehost',
-a script [make-examplehost-config.sh](examples/make-examplehost-config.sh) containing
+a script [make-examplehost-config.sh](examples/make-examplehost-config.sh) is executed, e.g. containing
 
 ```data
 #!/usr/bin/env bash
@@ -193,16 +189,8 @@ exit 0
 
 ```
 
-is executed to create/modify a file [examplehost-config](examples/examplehost-config)
-that contains
-
-```data
-hostname 127.0.0.1
-	port 50212
-	user root
-	IdentityFile ${PWD}/example_id_rsa
-
-```
-
-This [examplehost-config](examples/examplehost-config) is then included in the 
-[ssh_config](https://man7.org/linux/man-pages/man5/ssh_config.5.html) file
+to create/modify a configuration file [`examplehost-config`](examples/examplehost-config)
+with a conditional hostname for `examplehost`, e.g.
+This [`examplehost-config`](examples/examplehost-config) is then included in the 
+as configuration in the original
+[`ssh_config`](examples/ssh_config).
