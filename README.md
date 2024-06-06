@@ -87,7 +87,7 @@ Functions for dynamically generating / modifying ssh config files and availabili
 
 ## Examples 
 
-The following basic examples how to use `ssh-dynconf` are located in the `[examples/](examples/)` folder:
+The following basic examples how to use `ssh-dynconf` are located in the [`examples/`](examples/) folder:
 
 
 
@@ -103,7 +103,7 @@ ssh -F ssh_config examplehost -p 50212
 ```
 
 To dynamically define the 
-[ssh_config](https://man7.org/linux/man-pages/man5/ssh_config.5.html)
+[`ssh config`](https://man7.org/linux/man-pages/man5/ssh_config.5.html)
 for `examplehost`, a [ssh config file](examples/ssh_config) containing
 
 ```data
