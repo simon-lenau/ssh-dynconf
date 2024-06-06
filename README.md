@@ -190,7 +190,7 @@ exit 0
 ```
 
 to create/modify a configuration file [`examplehost-config`](examples/examplehost-config)
-with a conditional hostname for `examplehost`, e.g.
+with a conditional hostname for `examplehost`. \
 This [`examplehost-config`](examples/examplehost-config) is then included in the 
 as configuration in the original
 [`ssh_config`](examples/ssh_config).
