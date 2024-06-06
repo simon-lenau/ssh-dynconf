@@ -1,9 +1,3 @@
----
-noteId: "0f9efc3023f211efb378f1bbbb549ae0"
-tags: []
-
----
-
 # ssh-dynconf
 
 
@@ -116,7 +110,7 @@ Match originalhost examplehost exec "./make-examplehost-config.sh %p"
 ```
 
 If the entered host matches 'examplehost',
-a script [make-examplehost-config.sh](examples/make-examplehost-config.sh) is executed, e.g. containing
+a script [`make-examplehost-config.sh`](examples/make-examplehost-config.sh) is executed, e.g. containing
 
 ```bash
 #!/usr/bin/env bash

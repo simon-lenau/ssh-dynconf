@@ -114,7 +114,7 @@ cat "examples/ssh_config"
 ```
 
 If the entered host matches 'examplehost',
-a script [make-examplehost-config.sh](examples/make-examplehost-config.sh) is executed, e.g. containing
+a script [`make-examplehost-config.sh`](examples/make-examplehost-config.sh) is executed, e.g. containing
 
 ```{bash ssh_script,echo=FALSE,comment=NA}
 cat "examples/make-examplehost-config.sh"
