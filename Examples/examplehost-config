@@ -1,4 +1,4 @@
 hostname 127.0.0.1
 	port 50212
 	user root
-	IdentityFile ${PWD}/id_rsa
+	IdentityFile ${PWD}/example_id_rsa

@@ -1,0 +1,3 @@
+Match originalhost examplehost exec "./make-examplehost-config.sh %p"
+	Include examplehost-config
+
