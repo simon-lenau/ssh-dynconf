@@ -1,3 +1,3 @@
 [submodule "submodules/bash-aux"]
 	path = submodules/bash-aux
-	url = https://github.com/simon-lenau/bash-doc.git
+	url = https://github.com/simon-lenau/bash-aux.git
