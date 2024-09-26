@@ -33,9 +33,13 @@ function ssh_host_available {
         2>&1)"
 
     if (printf "${output}" | grep -Eiq "Host key .* has changed"); then
-        echo "Key for host >${hostname}< has changed. Removing that host!" >&2
-        # printf -- "ssh -G "$hostname"" >&2
-        ssh-keygen -f "$HOME/.ssh/known_hosts" -R "[${host}]:${port}"
+        echo "Key for host >${host}< has changed. Removing that host!" >&2
+        hostname="$(
+            ssh -G "$host" 2>/dev/null |
+                awk '$1 == "hostname" { print $2 }'
+        )"
+        ssh-keygen -f "$HOME/.ssh/known_hosts" -R "[${host}]:${port}" >/dev/null 2>&1
+        ssh-keygen -f "$HOME/.ssh/known_hosts" -R "[${hostname}]:${port}" >/dev/null 2>&1
     fi
 
     printf "${output}" |
